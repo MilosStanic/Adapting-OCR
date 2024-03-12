@@ -75,8 +75,8 @@ class OCRTrainer(object):
         mixed_x = lam * x + (1 - lam) * x[index, :]
         y_a, y_b = y, [y[i] for i in index]
         lengths_b = torch.LongTensor([lengths[i] for i in index])
-        y_a, y_b = torch.LongTensor(torch.LongTensor(list(chain((*y_a))))), \
-        torch.LongTensor(torch.LongTensor(list(chain((*y_b)))))
+        y_a = torch.LongTensor(list(chain(*y_a)))
+        y_b = torch.LongTensor(list(chain(*y_b)))
         return mixed_x, y_a, y_b, lengths, lengths_b, lam
 
     def mixup_criterion(self, logits, y_a, y_b, l_a, l_b, pred_sizes, lam):
